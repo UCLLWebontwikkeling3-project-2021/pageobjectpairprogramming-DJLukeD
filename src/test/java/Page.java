@@ -1,10 +1,13 @@
 import org.openqa.selenium.WebDriver;
 
+/*
+ * @author Lukas De Ruysscher
+ */
 public abstract class Page {
     WebDriver driver;
     String path = "http://localhost:8080/pageobjectpairprogramming_DJLukeD_war/Controller";
 
-    public Page (WebDriver driver) {
+    public Page(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -16,7 +19,7 @@ public abstract class Page {
         return path;
     }
 
-    public String getTitle () {
+    public String getTitle() {
         return driver.getTitle();
     }
 }
