@@ -3,33 +3,41 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 /*
  * @author Lukas De Ruysscher
  */
 public class PersonOverviewTest {
     private WebDriver driver;
-    private String path = "http://localhost:8080/pageobjectpairprogramming_DJLukeD_war/Controller";
+    private String path = "http://localhost:8080/Controller";
+
 
     @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "D:\\PBA_Toegepaste_Informatica\\TI 2\\Sem 1\\Web3\\Selenium\\chromedriver.exe");
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        Map<String, Object> prefs = new HashMap<String, Object>();
+        prefs.put("profile.managed_default_content_settings.javascript", 2);
+        options.setExperimentalOption("prefs", prefs);
+        driver = new ChromeDriver(options);
     }
 
-  /*  @After
+
+    @After
     public void clean() {
         driver.quit();
     }
 
-   */
-
     @Test
-
     public void test_User_Not_Logged_In_Shows_Error(){
         PersonOverviewPage personOverviewPage = PageFactory.initElements(driver, PersonOverviewPage.class);
-        assertEquals("Error", personOverviewPage.getTitle());
+        assertEquals("Home", personOverviewPage.getTitle());
         assertTrue(personOverviewPage.containsErrorMessage("Please log in to see this content"));
     }
 
@@ -38,7 +46,7 @@ public class PersonOverviewTest {
         LoginPage loginPage = PageFactory.initElements(driver, LoginPage.class);
         loginPage.logInAsUser();
         PersonOverviewPage personOverviewPage = PageFactory.initElements(driver, PersonOverviewPage.class);
-        assertEquals("Error", personOverviewPage.getTitle());
+        assertEquals("Home", personOverviewPage.getTitle());
         assertTrue(personOverviewPage.containsErrorMessage("You are not authorized to see this content!"));
     }
 

@@ -59,7 +59,7 @@ public class PersonOverviewPage extends Page {
     }
 
     public boolean containsErrorMessage(String message) {
-        WebElement errorMessage = driver.findElement(By.cssSelector("p"));
+        WebElement errorMessage = driver.findElement(By.cssSelector(".alert-danger"));
         return (message.equals(errorMessage.getText()));
     }
 }
